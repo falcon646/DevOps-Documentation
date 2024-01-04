@@ -1,0 +1,22 @@
+1. create vpc, provide cidr block(192.168.0./16)
+2. create internet gatewat , attach to vpc
+3. create 2 subnets , one prrivate one public
+   for public subnet , cidr = 192.168.1.0/24 , select az us-east-1a
+   for private subnet , cidr = 192.168.2.0/24 , select az us-east-1b
+4. create 2 route tables , one for public subnet one for private subnet
+   for publc route table , add below entries
+   192.168.0.0/16 - local
+   0.0.0.0/0 - internet gateway
+
+   for ptivate route table , add only local gateway
+   192.168.0.0/16 - local
+5. associate the private route table to private subnet and public route table with public subnet
+6. enable assignment of public ip in the public subnet
+7. create ec2 instance for web server, select the vpc we created and the public subnet
+8. assign a security group to the ec2 instnace which allows port 22 and port 80 and create the instance
+9. create ec2 instnace in rivate subnet and assign the same security group.
+10. public ec2 instnace can be accesed via browser and ssh whereas private ec2 canot be. we can ssh to private ec2 instance via the public ec2 instance 
+
+11. to allow the privye subnets machines to connect to internet you need to use nat gateway.
+12. create natgateway in public subnet . 
+13. add route to 0.0.0.0/0 as destination and nat gateway as target in the private route table

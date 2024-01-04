@@ -1,0 +1,28 @@
+Stpeps to setup Jenkins Master Slave Archicture
+
+=== Create a master node ===
+1. Foolow the normal jenkins server installation steps to create the master node
+
+==Creating a Slave node=
+1. Create ec2 instance
+2. install git
+    sudo apt update
+    sudo apt install git -y
+3. install java
+    $ sudo apt update
+    $ sudo apt install default-jdk -y
+
+4. create a directory in /home/ubuntu which will act as root directory for the slave machine eg /home/ubuntu/jenkins
+note: jenkins is not required to be install in the slave machine
+
+=Configuring the slave nodes on the master node==
+1. goto jenkins dashboard -> manager jenins -> Manage nodes and cloud
+2. click new node -> enter name -> Select permanent agent
+3. enter remote root directory path that we added in the slave node
+4. add label -> select launch agent via ssh 
+5. give host as "slave vm dns url" by pasting the public dns url of the ec2 machine
+6. add credentials (select kind as : ssh username with private key)
+7. enter username as ubuntu
+8. select private ket as enter drectly and copy the private key contents there
+9. select host key strategy as "manually trusted key verification strategy"
+10. apply and save

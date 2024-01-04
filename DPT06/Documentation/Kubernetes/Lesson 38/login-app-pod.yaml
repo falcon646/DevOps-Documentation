@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  labels:
+    app: login
+    env: dev
+    createdby: ax025u
+spec:
+  container:
+    - name: login-app
+      image: falcon646/myloginapp:v1

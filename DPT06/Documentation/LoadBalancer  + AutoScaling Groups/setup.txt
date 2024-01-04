@@ -1,0 +1,64 @@
+== setup vpc=====
+
+1. create vpc
+2. create igw and atach it to the vpc
+3. create 2 public subnets in different az - these are for load balancers
+4. create 2 private subnet in different az - these are for the aplication ec2 machines 
+5. create route table and add route to internet thru internate gateway and local route for communication within vpc - this would be the public route table so associate these route table to public subnet
+6. create a nat gateway in any public subnet for the ec2 instances in private subnet to access internet
+7. create another route table and add a local route for inter vpc comm and assoiciate the nat gateway for internet access - this would be the private route table so associate it with the private subnet
+
+
+
+
+=== create launch configuration======
+1. creare launch config , select the ami , select instance typr , select iam role fpr ssm and s3 access
+(make sure the ami has already https installed )
+2. add user data script to copy the index.html file from s3 to your machine
+
+#!/bin/bash
+aws s3 cp <url> /var/www/html/index.html
+systemctl restart httpd
+
+3. on another tab , create a new security group for port 22 and port 80 and attached it to the vpc and then select this security group in the launch configuration section
+4. select keypair.
+5. finish
+
+==========create auto scaling groups=====================
+1. create autoscaling groups and select launch configuration yoy created before (use launch configuration and not launch template)
+2. select the vpc and select all the pricate subnets where you want your ec2 instances to be created
+3. select no lb for now , we'll set it up later
+4. select desired and min capacity as 1 , max as 5
+5. select scaling policies as target tracking
+	- materuc type : avg cpu util
+ 	- target value : 80
+	- warmup time: 300 secs
+6. finish
+
+=============create target group=================
+
+1. create target group , select target type as instance, slect 80 for port and the vpc
+2. for healtj check , selc=ect override and set timinings as per your convinience
+3. do not register any target manually
+4. finish
+
+=============associate autoscaling groups and target groups=============
+1. edit the target group created before
+2. under load balancing section add the target group you created
+
+=============create load balancer=============
+1. create networl load balancer, internet facing , ipv4
+2. select the vpc , mapping it to both the az and the corosponding public sunet
+3. under listening and routing select the target group you created
+4. finish
+
+============confugure route53=========
+1. copy the dns name from load balancer and add the enntry in route 53 as A record
+
+
+
+
+===========
+amazon-linux-extras install epel -y
+yum install stress
+stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 100000000

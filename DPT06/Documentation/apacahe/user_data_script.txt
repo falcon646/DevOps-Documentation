@@ -1,0 +1,5 @@
+#!/bin/bash
+yum install httpd -y
+aws s3 cp s3://testashwindpt06/httpd.conf /etc/httpd/conf/httpd.conf
+systemctl start httpd
+systemctl enable httpd

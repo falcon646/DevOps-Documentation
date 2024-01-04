@@ -1,0 +1,27 @@
+apiVersion : apps/v1
+kind : ReplicaSet
+metadata:
+  name: login-app-rs
+  labels:
+    app: login-app
+    env: dev
+    createdby: ax025u
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: login-app
+      env: dev
+  template:
+    metadata:
+    name: login-app
+    labels:
+      app: login-app
+      env: dev
+      createdby: ax025u
+    spec:
+      containers:
+        - name: login-app
+          image: falcon646/myloginapp:v1
+          ports:
+            - containerPort: 8080
