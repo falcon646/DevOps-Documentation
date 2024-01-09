@@ -19,10 +19,10 @@ vi /etc/ssh/sshd_config
 PasswordAuthentication yes  # (by default value would be no, change to yes)
 
 # Restart sshd service
-$ sudo systemctl restart sshd
+sudo systemctl restart sshd
 
 # Switch to Ansible user
-$ sudo su - ansible
+sudo su - ansible
 ```
 Execute below commands only on master node
 ```bash
@@ -51,6 +51,7 @@ sudo mkdir /etc/ansible
 sudo vi /etc/ansible/ansible.cfg
 
 # copy the entire ansible.cfg file from https://github.com/ansible/ansible/tree/stable-2.9/examples , paste it your local file and Uncomment below lines
+[defaults]
 inventory = /etc/ansible/hosts # to specify the location of hosts file
 sudo_user = ansible # to specify the user
 # or just copy the above 2 lines and paste in yout ansible.cfg file
