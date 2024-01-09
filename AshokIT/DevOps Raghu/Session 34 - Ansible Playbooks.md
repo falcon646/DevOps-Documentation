@@ -303,6 +303,7 @@ The user module simplifies the management of user accounts, making it easy to cr
 - ### yum module
 to install 
 ```yaml
+---
 - name: install maven
   hosts: all
   become: true
@@ -325,6 +326,7 @@ to install
 
 to install maven for different linux distros types
 ```yaml
+---
 - name: ionstall maven for diff distros
   hosts: all
   gather_facts: true
