@@ -122,7 +122,7 @@ Docker uses a union file system, such as OverlayFS, to efficiently manage and sh
 3. ### Volumes 
     Docker volumes are used to persist and share data between containers and the host machine. They provide a way to store and manage persistent data separately from the container lifecycle. Volumes can be mounted into containers at specific paths.
 
-4. ### Networking
+4. ### Network
     Docker networks enable communication between containers and the outside world. They provide isolated network environments for containers and allow containers to communicate with each other using IP addresses or container names. Docker supports various network drivers for different use cases.
 
     - Default Bridge Network:
@@ -132,5 +132,74 @@ Docker uses a union file system, such as OverlayFS, to efficiently manage and sh
     - User-Defined Networks:
 
         Users can create custom networks to connect containers. This allows for more complex networking setups and enables communication between containers across different hosts.
+
+# Docker Registry:
+A Docker registry stores Docker images. Docker Hub is a public registry that anyone can use, and Docker is configured to look for images on Docker Hub by default. You can even run your own private registry.
+When you use the docker pull or docker run commands, the required images are pulled from your configured registry. When you use the docker push command, your image is pushed to your configured registry.
+
+Default Docker registry : https://hub.docker.com.
+
+Other Docker Registries are: AWS ECR,  Google GCR, Microsoft ACR, Harbor ..etc
+
+
+# Docker Setup
+for amazon linux 2023
+```bash
+# update repo
+sudo yum update -y
+# install docker
+sudo yum install docker -y 
+# enable and start docker service
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# add current user to docker group to run docker commands withou sudo
+sudo usermod -aG docker $USER
+# exist and restart the terminal.
+$ exit
+
+# verify docker
+docker info
+docker -version
+```
+## Docker commands
+```bash
+# Display local images 
+docker images
+# Download  image.
+docker pull <image-name / image-id>
+# Run docker image.
+docker run <image-name / image-id>
+# Delete docker image.
+docker rmi <image-name / image-id>
+# Display all running docker containers.
+docker ps 	
+# Display all running and stopped containers.
+docker ps -a
+# Delete docker container.
+docker rm <container-id>
+# Delete docker image forcefully.
+docker rmi  -f <image-id>
+# Stop Docker container.
+docker stop <container-id>
+# Delete all stopped containers and unused images and unused networks.
+docker system prune -a
+```
+
+## Advanced Docker Commands
+```bash
+# export/save an image to a tar archive
+docker save -o image.tar <image_name>
+# inspect thr tar file
+tar -tvf image.tar
+# load an docker image from a tar file
+docker load -i image.tar
+
+# list only ids of all images
+docker images -q
+# remove all images present in local
+docker rmi $(docker images -q)
+
+
 
 
