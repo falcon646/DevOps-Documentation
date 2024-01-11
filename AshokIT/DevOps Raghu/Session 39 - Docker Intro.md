@@ -182,6 +182,8 @@ docker rm <container-id>
 docker rmi  -f <image-id>
 # Stop Docker container.
 docker stop <container-id>
+# start a stoped container
+docker stop <container-id>
 # Delete all stopped containers and unused images and unused networks.
 docker system prune -a
 ```
@@ -197,9 +199,15 @@ docker load -i image.tar
 
 # list only ids of all images
 docker images -q
-# remove all images present in local
+# remove all images present in local    
 docker rmi $(docker images -q)
+```
 
+# Dockerfile
+A Dockerfile is a text file that contains a set of instructions used to build a Docker image. Docker images are the building blocks of containers, providing a lightweight and portable way to package and distribute applications.
 
+It provides a way to automate the process of creating a Docker container image, specifying the base image, adding application code, defining runtime settings, and more. Dockerfiles follow a simple syntax and are typically named "Dockerfile" with no file extension.
+- In Dockerfile we will use DSL (Domain Specific Language) keywords
+- Docker engine will process Dockerfile instructions from top to bottom.
 
 
