@@ -183,9 +183,42 @@ docker rmi  -f <image-id>
 # Stop Docker container.
 docker stop <container-id>
 # start a stoped container
-docker stop <container-id>
+docker start <container-id>
+# see logs of a running container
+docker logs <container-id>
+# acess the shell inside a container
+docker exec -it <container-id> /bin/bash
 # Delete all stopped containers and unused images and unused networks.
 docker system prune -a
+```
+
+## Docker run command
+```bash
+# run container from image
+docker run <image_name>
+# the --name option is used to assign a specific name to the container.
+docker run --name my_container <image_name>
+# -d option runs the container in detached mode, which means it runs in the background.
+# The terminal is returned to the user immediately after starting the container.
+docker run -d <image_name>
+# the -p option is used to map a port from the host to a port inside the container
+# In this example, port 8080 on the host is mapped to port 80 inside the container
+docker run -p [HOST_PORT]:[CONTAINER_PORT] [IMAGE]
+docker run -p 8080:80 <image_name>
+# The -e option sets environment variables inside the container
+docker run -e MYSQL_ROOT_PASSWORD=my-secret-pw <image_name>
+# The -v option mounts a volume from the host to the container
+docker run -v /host/path:/container/path <image_name>
+#  run a specific command inside the container by providing it as an argument to docker run
+docker run <image_name> 'ls -l'
+# The -it options provide an interactive terminal inside the container.
+docker run -it <image_name> /bin/bash
+# Use options like --cpu-shares and --memory to limit CPU and memory resources allocated to the container
+docker run --cpu-shares=256 --memory=512m <image_name>
+# The --rm option removes the container automatically after it exits
+docker run --rm <image_name>
+# 
+docker run --name webapp -d -p 8080:80 <image_name
 ```
 
 ## Advanced Docker Commands
@@ -201,6 +234,42 @@ docker load -i image.tar
 docker images -q
 # remove all images present in local    
 docker rmi $(docker images -q)
+```
+
+## Advanced Docker run
+```bash
+# Use --cpus to limit the container to a specific number of CPUs.
+# Use --memory to set the maximum memory allowed for the container.
+docker run --cpus=2 --memory=1g <image_name>
+
+# The --network=host option uses the host network stack, sharing the network namespace with the host.
+# Useful for scenarios where the container needs to access services running on the host directly.
+docker run --network=host <image_name>
+
+# The -P option automatically maps all exposed ports in the container to random ports on the host
+docker run -P <image_name>
+
+# The --user option sets the user or UID for the process running inside the container.
+docker run --user 1001 <image_name>
+
+# The --env-file option reads environment variables from a file and sets them in the container.
+docker run --env-file=myenvfile.env <image_name>
+
+#The -w option sets the working directory inside the container 
+# Useful for specifying where the command should be executed.
+docker run -w /app <image_name>
+
+#The --volumes-from option allows a container to use volumes from another container.
+# Useful for sharing data between containers.
+docker run --volumes-from=source_container <image_name>
+
+
+#The --read-only option mounts the container's root filesystem as read-only.
+# Enhances security by preventing processes inside the container from writing to the filesystem.
+docker run --read-only <image_name>
+
+# The --label option adds metadata labels to the container.
+docker run --label mylabel=value <image_name>
 ```
 
 # Dockerfile
