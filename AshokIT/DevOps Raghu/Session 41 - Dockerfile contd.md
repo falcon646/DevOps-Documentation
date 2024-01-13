@@ -1,5 +1,5 @@
 ### Running container in detached mode
-when we run a container, by default our terminal will be blocked when the container starts, we can't execute any other command. To execute other commands, we need to type CTRL+C . even though the terminal will open for our commands, but the container gets stopped.
+when we run a container, by default our terminal will be blocked when the container starts, we can't execute any other command. To execute other commands, we need exit the shell using exit .By doing this even though the terminal open up for our commands, but the container gets stopped.
 
 To overcome the above problem we can pass '-d' to run container in detached mode. When we run a conatiner in detached mode the container keeps running i the background and the terminal will not be blocked
 
