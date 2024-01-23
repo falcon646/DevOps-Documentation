@@ -288,6 +288,7 @@ docker exec -it mysql bash
 
 # login mysql , create database, table, then insert few rows
 mysql -u root -p 
+# pass is root
 CREATE DATABASE raghudb; 
 USE raghudb; 
 CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50)); 

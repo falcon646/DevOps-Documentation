@@ -1,0 +1,17 @@
+ansible
+- deploy an dockerised application system from anible
+- deploy an kubernetes application system from anible
+
+kubernetes
+- setup kuebernetes from scratch ( no cloud)
+
+jenkins
+- setup completedcicd pipeline for a nodejs app
+- setup cicd pipeline for a reactjs app
+- include sonarqube and nexus and veracode
+
+docker
+- how to containerise java app
+- how to containerise nodejs app
+- how to containerise react app
+- how to containerise python app

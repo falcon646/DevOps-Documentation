@@ -118,15 +118,5 @@ Raghuit-db1.com
 Raghuit-db2.com
 ```
 
-sid: 45
-sname: ashwin
-course:
-    - devops
-    - springboot
-    - iac
-location:
-    name: trilangs
-    pincode: 462039
-
 
 
