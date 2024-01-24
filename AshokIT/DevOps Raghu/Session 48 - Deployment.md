@@ -137,8 +137,8 @@ kubectl scale deploy <deployment-name> --replicas=<desired-replica-count>
 kubectl delete deploy <deployment-name>
 kubectl delete -f web-deploy.yml
 
-# to generate YAML file without wiring it manually
-kubectl create deployment my-deploy --image nginx --replicas 4 --dry-run -o yaml > test-deployment.yml
+# to generate YAML file without writing it manually
+kubectl create deployment my-deploy --image nginx --replicas 4 --dry-run=client -o yaml > test-deployment.yml
 # Then apply the yaml
 kubectl apply -f test-deployment.yml
 
@@ -253,62 +253,4 @@ spec:
     spec:
     ...
     ```
-
-### Deployment Lifecycle Management
-- Updates: Managing the process of updating application versions or configurations
-    - Updates refer to the process of modifying the state of a Deployment to a new desired state. This can include changes to the container image, environment variables, labels, and other specifications.
-    - Behavior: Deployments support rolling updates, ensuring that the application is updated gradually without causing downtime. Old Pods are replaced with new ones, maintaining a specified number of replicas
-    - Command : `kubectl apply -f deployment.yaml`
-    - Strategy : Rolling Update, Recreate, Blue-Green, Canary, A/B Testing.
-
-- Rollback: Reverting to a previous known stable state in case of issues with an update.
-    - Rollbacks involve reverting a Deployment to a previous version or revision. - This is useful in case an update introduces issues, and you need to return to a known stable state.
-    - Command: `kubectl rollout undo deployment <deployment-name> --to-revision=<revision-number>`
-    - Behavior: When a rollback is initiated, Deployments automatically replace the current Pods with the Pods from the previous revision, effectively undoing the recent update. 
-
-- Pause :  Temporarily halting the update process for inspection, adjustments, or controlled progression.
-    - Pausing a Deployment temporarily stops the rolling update process, preventing further changes to Pods. 
-    - This is useful for inspection, validation, or making manual adjustments during an update.
-    - Command: `kubectl rollout pause deployment <deployment-name>`
-    - Behavior: Once paused, the Deployment maintains the current state without progressing through the update. You can inspect the state of Pods or make necessary adjustments.
-
-- Resume :  Resuming the update process after it has been paused
-    - Resuming a Deployment restarts the rolling update process after it has been paused. This allows the update to continue from where it left off.
-    - Command: `kubectl rollout resume deployment <deployment-name>`
-    - Behavior: Once resumed, the Deployment proceeds with the rolling update, replacing old Pods with new ones according to the defined strategy.
-
-- History: Maintaining a record of revisions and updates to a Deployment over time.
-    - Deployment history refers to the record of revisions and updates made to a Deployment over time. It allows users to view the details of each revision and facilitates rollbacks to specific points in history.
-    - Command : `kubectl rollout history deployment <deployment-name>`
-    - Behavior: The history includes details such as revision number, status, and changes made in each update. Users can choose to rollback to a specific revision based on this history.
-
-- A Deployment's rollout is triggered if and only if the Deployment's Pod template (that is, .spec.template) is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
-- Deployment ensures that only a certain number of Pods are down while they are being updated. By default, it ensures that at least 75% of the desired number of Pods are up (25% max unavailable).
-commands
-```bash
-# Trigger an update
-kubectl apply -f deployment.yaml
-
-# see the Deployment rollout status
-kubectl rollout status <deployment-name>
-
-# View rollout history
-kubectl rollout history deployment <deployment-name>
-
-# rollback to the last reviosion
-kubectl rollout undo deployment/nginx-deployment
-# Rollback to a specific revision
-kubectl rollout undo deployment <deployment-name> --to-revision=<revision-number>
-
-# Pause and resume a deployment
-kubectl rollout pause deployment <deployment-name>
-kubectl rollout resume deployment <deployment-name>
-
-# To see the details of each revision, run:
-kubectl rollout history deployment/nginx-deployment --revision=2
-
-# restart all pods associated with a deployment
-kubectl rollout restart deployment <deployment-name>
-
-```
 
