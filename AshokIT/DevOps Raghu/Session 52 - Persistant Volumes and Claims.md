@@ -398,13 +398,14 @@ kubectl apply -f my-storageclass.yaml
 - The PV should be provisioned by a storageclass that supports hostpath provisioning
 - create a pvc to claim that pv
 
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: standard
 provisioner: kubernetes.io/hostpath
----
+```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
