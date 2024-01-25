@@ -1,0 +1,30 @@
+
+to run the jobs on any node apart from the master node use -> node('!master') {...} or agent { label '!master' } 
+
+===========
+In the Jenkins pipeline script, when you use double quotes around a command within the sh step, variables inside the double quotes are expanded, 
+and their values are substituted into the command. 
+Here's an explanation of the statement:
+
+Double Quotes and Variable Expansion:
+
+groovy
+sh "scp -o StrictHostKeyChecking=no -i target/01-maven-web-app.war ubuntu@172.31.24.213:/home/ubuntu/apache-tomcat-9.0.83/webapps/"
+
+The sh step is used to run shell commands within the Jenkins pipeline script.
+The command is enclosed in double quotes ("..."), which allows variable expansion.
+${WORKSPACE} Variable:
+
+The ${WORKSPACE} is a predefined Jenkins environment variable that represents the current workspace directory for the Jenkins job. It points to the location where Jenkins is storing the files and performing the build.
+In the context of the provided script, it's not explicitly used, but the comment suggests that the double quotes allow for variable expansion, including ${WORKSPACE} if it were used.
+Adjusting the Path to the WAR File:
+
+The comment also advises ensuring that the path to your WAR file is correct (target/01-maven-web-app.war).
+If the WAR file is located in the Jenkins workspace (which is often the case), using ${WORKSPACE} would allow the script to dynamically reference the correct path to the WAR file.
+Here's an example of how ${WORKSPACE} might be used in the context of the provided script:
+
+groovy
+
+sh "scp -o StrictHostKeyChecking=no -i ${WORKSPACE}/target/01-maven-web-app.war ubuntu@172.31.24.213:/home/ubuntu/apache-tomcat-9.0.83/webapps/"
+
+This assumes that the WAR file is in the target directory within the Jenkins workspace. If the WAR file is in a different location, adjust the path accordingly.
