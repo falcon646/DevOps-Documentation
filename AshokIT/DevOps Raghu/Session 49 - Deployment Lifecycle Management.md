@@ -64,7 +64,7 @@ commands
 kubectl apply -f deployment.yaml
 
 # see the Deployment rollout status
-kubectl rollout status <deployment-name>
+kubectl rollout status  deployment <deployment-name>
 
 # View rollout history
 kubectl rollout history deployment <deployment-name>
