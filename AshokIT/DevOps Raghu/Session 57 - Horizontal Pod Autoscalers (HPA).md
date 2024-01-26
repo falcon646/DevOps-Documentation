@@ -72,10 +72,43 @@ To deploy the Metric Server, you can use YAML manifests provided by the Kubernet
 
 `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
 
+### HPA Commands
+```bash
+# Get HPA
+kubectl get hpa
+
+# Describe HPA
+kubectl describe hpa <hpa-name>
+
+# Autoscale a Deployment
+kubectl autoscale deployment <deployment-name> --cpu-percent=50 --min=1 --max=10
+
+# Delete HPA
+kubectl delete hpa <hpa-name>
+```
+
+### Metric Server Commands
+```bash
+# Install Metric Server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# Check Metric Server Pods
+kubectl get pods -n kube-system | grep metrics-server
+
+# View Metric Server Logs
+kubectl logs -n kube-system <metrics-server-pod-name>
+
+# Check Metrics for Pods
+kubectl top pods
+
+# Check Metrics for Nodes
+kubectl top nodes
+```
+
 ### Structure of a HPA yaml
 Below is a simplified example of an HPA YAML manifest:
 ```yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: example-hpa
@@ -92,7 +125,7 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 50  #  HPA will automatically adjust the number of replicas to achieve or maintain this target utilization
 ```
 Explanation :
 
@@ -105,3 +138,36 @@ Explanation :
   - `target` : The target field specifies the target type and value for the metric. In this example:
   - `type` : Utilization: Indicates that the target is based on resource utilization.
   - `averageUtilization`: 50: Specifies the target average CPU utilization percentage. The autoscaler will try to maintain the average CPU utilization of the pods at or below 50%.
+ 
+### Testing the Autoscaler
+
+To do this, we'll start a different Pod to act as a client. The container within the client Pod runs in an infinite loop, sending queries to the service resource of the Deploument.
+```bash
+# Run this in a separate terminal
+# so that the load generation continues and you can carry on with the rest of the steps
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://<service-name>; done"
+```
+Now run on the previos terminal :
+```bash
+# type Ctrl+C to end the watch when you're ready
+kubectl get hpa
+```
+Within a minute or so, you should see the higher CPU load
+```bash
+NAME         REFERENCE                              TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+example-hpa   Deployment/example-deploymet/scale   305% / 50%      1        10        1         3m
+and then, more replicas. For example:
+
+NAME         REFERENCE                              TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+example-hpa   Deployment/example-deploymet/scale     305% / 50%  1         10        7          3m
+```
+Here, CPU consumption has increased to 305% of the request. As a result, the Deployment was resized to 7 replicas:
+
+kubectl get deployment 
+You should see the replica count matching the figure from the HorizontalPodAutoscaler
+
+To stop sending the load, in the terminal where you created the Pod that runs a busybox image, terminate the load generation by typing `<Ctrl> + C`
+
+Once CPU utilization dropped to 0, the HPA automatically scaled the number of replicas back down to 1. 
+Autoscaling the replicas may take a few minutes
+
