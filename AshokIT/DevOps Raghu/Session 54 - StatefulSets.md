@@ -171,3 +171,191 @@ spec:
 - `spec` : The spec section defines the specification of the PVC template.
 - `accessModes` : This field specifies the access modes for the PVC. In this example, the access mode is set to ReadWriteOnce, indicating that the volume can be mounted as read-write by a single node.
 - `resources` : The resources field specifies the resource requirements for the PVC. In this case, the PVC is requesting a storage size of 1 gigabyte (1Gi).
+
+### Commands
+```bash
+# Create or apply a StatefulSet
+kubectl apply -f your-statefulset.yaml
+
+# Get information about StatefulSets
+kubectl get statefulsets
+
+# Get detailed information about a specific StatefulSet
+kubectl describe statefulset your-statefulset
+
+# Scale a StatefulSet to a specific number of replicas
+kubectl scale statefulset your-statefulset --replicas=3
+
+# Delete a StatefulSet (and its Pods)
+kubectl delete statefulset your-statefulset
+
+# Delete a StatefulSet and its Pods, along with associated PVCs
+kubectl delete statefulset your-statefulset --cascade=true
+
+# Rolling update for a StatefulSet
+kubectl rollout status statefulset your-statefulset
+kubectl rollout history statefulset your-statefulset
+kubectl rollout undo statefulset your-statefulset
+
+# Execute a command in a specific Pod within a StatefulSet
+kubectl exec -it your-statefulset-0 -- /bin/bash
+
+# Get logs from a specific Pod within a StatefulSet
+kubectl logs your-statefulset-0
+```
+
+### Example - 1 : Nginx StatefulSet
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp-statefulset
+spec:
+  replicas: 3
+  serviceName: myapp-service
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: myapp-volume
+              mountPath: /var/www/html
+  volumeClaimTemplates:
+    - metadata:
+        name: myapp-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 1Gi
+```
+### Example - 2 : MySQL database using the StatefulSets
+- Create Secret
+  ```yaml
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: mysql-password
+  type: opaque
+  stringData:
+    MYSQL_ROOT_PASSWORD: password
+  ```
+- Before creating a StatefulSet application, check your volumes by getting the pv , pvc , storageclass list
+  ```bash
+  kubectl get pv
+  kubectl get pvc
+  kubectl get storageclass
+  ```
+- Create MySQL Database StatefulSet
+```apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-set
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: "mysql"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-store
+          mountPath: /var/lib/mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-password
+                key: MYSQL_ROOT_PASSWORD
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-store
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "linode-block-storage-retain"
+      resources:
+        requests:
+          storage: 5Gi
+```
+- Here are a few things to note:
+  - The kind is a StatefulSet. kind tells Kubernetes to create a MySQL application with the stateful feature.
+  - The password is taken from the Secret object using the secretKeyRef.
+  - The Linode block storage was used in the volumeClaimTemplates. If you are not mentioning any storage class name here, then it will - take the default storage class in your cluster.
+  - The replication count here is 3 (using the replica parameter), so it will create three Pods named mysql-set-0, mysql-set-1, and mysql-set-2.
+
+- Create the statefulset resource using `kubectl apply -f mysql.yaml`
+- Now that the MySQL Pods are created, get the Pods list `kubectl get pods`
+- Create a Service for the StatefulSet Application. Do not use the load balancer service for a stateful application, but instead, create a headless service for the MySQL application
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+```
+- Create a Client for MySQL If you want to access MySQL, then you will need a MySQL client tool. Deploy a MySQL client using the following manifest
+ ```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-client
+spec:
+  containers:
+  - name: mysql-container
+    image: alpine
+    command: ['sh','-c', "sleep 1800m"]
+    imagePullPolicy: IfNotPresent
+```
+- Then enter this into the MySQL client `kubectl exec --stdin --tty mysql-client -- sh`
+-  Install the MySQL client tool `apk add mysql-client`
+-  Access the MySQL application using the MySQL client and create databases on the Pods ( to access the pod shell use `kubectl exec -it mysql-client /bin/sh`)
+  ```bash
+  # To access MySQL, you can use the same standard MySQL command to connect with the MySQL server:
+  mysql -u root -p -h host-server-name
+
+  # For access, you will need a MySQL server name. The syntax of the MySQL server in the Kubernetes cluster is given below:
+  stateful_name-ordinal_number.mysql.default.svc.cluster.local
+
+  #Example
+  mysql-set-0.mysql.default.svc.cluster.local
+
+  # Connect with the MySQL primary Pod using the following command. When asked for a password, enter the one you made in the secret.
+  mysql -u root -p -h mysql-set-0.mysql.default.svc.cluster.local
+
+  # Next, create a database on the MySQL primary, then exit
+  create database erp;
+  exit;
+```
+- Now connect the other Pods and create the database like above:
+  ```bash
+    mysql -u root -p -h mysql-set-1.mysql.default.svc.cluster.local
+
+    mysql -u root -p -h mysql-set-2.mysql.default.svc.cluster.local
+  ```
