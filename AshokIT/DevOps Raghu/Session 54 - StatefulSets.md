@@ -104,3 +104,51 @@ In summary, StatefulSets provide the following advantages when compared to Deplo
 - Other Pods act as replicas
 - New Pods will only be created if the previous Pod is in running state and will clone the previous Pod’s data
 - Deletion of Pods occurs in reverse order
+
+## StatefulSet Pod Behaviour
+
+Scaling operations (scaling up or down) and creating or deleting pods in a StatefulSet in Kubernetes have specific behaviors and considerations due to the stateful nature of the workloads. Let's explore different scenarios:
+
+- Scaling Up:
+  - Pod Creation:
+
+    When you scale up a StatefulSet by increasing the number of replicas, new pods are created with the next available ordinal index. For example, if you have Pods web-0 and web-1 and you scale up, a new pod with the name web-2 will be created.
+  - Volume Provisioning:
+
+    Each pod in a StatefulSet typically has its own Persistent Volume Claim (PVC), ensuring that each pod has its own stable storage. When scaling up, new PVCs are provisioned for the new pods.
+
+- Scaling Down:
+    - Pod Termination:
+
+    When scaling down a StatefulSet, pods are terminated in reverse ordinal order. For example, if you have Pods web-0, web-1, and web-2, and you scale down, web-2 will be terminated first.
+    - Volume Retention:
+
+    Pods are terminated gracefully, allowing them to complete their work and release resources. The associated Persistent Volume (PV) and Persistent Volume Claim (PVC) are not immediately deleted. This helps preserve data. PV and PVC deletion can be configured based on the reclaim policy.
+
+- Pod Deletion:
+    - Pod Deletion:
+
+    Deleting a pod triggers the StatefulSet to create a replacement pod with the same ordinal index. The new pod is created with a new unique identity but retains the same stable storage.
+  
+    - Volume Retention:
+
+    Similar to scaling down, when a pod is deleted, the associated PV and PVC are not immediately deleted. This helps in preserving data and allows the new pod to reuse the existing volume.
+
+- Pod Creation:
+    - Unique Identity:
+
+    Each pod in a StatefulSet has a unique identity based on its ordinal index. When creating a new pod, it is assigned the next available ordinal index, and a corresponding PV and PVC are provisioned.
+    - Stable Storage:
+
+    The use of PVs and PVCs ensures that each pod gets its own stable storage. Even if a pod is deleted and a new one is created, the storage is retained, allowing for data persistence.
+  
+Considerations:
+- Pod Identity: The ordinal index and stable network identity are crucial for stateful applications. The StatefulSet ensures that each pod has a predictable and unique identity.
+
+- Stateful Application Awareness: Applications running in StatefulSets need to be aware of their state and handle any data synchronization or recovery processes during scaling operations.
+
+- Persistent Volumes: Proper configuration of Persistent Volumes is essential to ensure that data is retained and made available to new pods.
+
+- Storage Reclaim Policy: The storage reclaim policy in the PVC specifies whether the associated PV should be retained, deleted, or recycled when the PVC is deleted. This policy influences the behavior of scaling and pod deletion.
+
+- Init Containers: Init containers can be used in StatefulSets to perform initialization tasks before the main container starts, which can be beneficial for stateful applications.
