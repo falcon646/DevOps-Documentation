@@ -193,6 +193,21 @@ spec:
 
     ![pv](images/pvc.png)
 
+### Lifecycle of PV and PVC
+In a Kubernetes cluster, a PV exists as a storage resource in the cluster. PVCs are requests for those resources and also act as claim checks to the resource. The interaction between PVs and PVCs follows this lifecycle:
+
+`Provisioning` - the creation of the PV, either directly (static) or dynamically using StorageClass.
+`Binding` - assigning the PV to the PVC.
+`Using` - Pods use the volume through the PVC.
+`Reclaiming` - the PV is reclaimed, either by keeping it for the next use or by deleting it directly from the cloud storage.
+
+A volume will be in one of the following states:
+
+`Available` - this state shows that the PV is ready to be used by the PVC.
+`Bound` - this state shows that the PV has been assigned to a PVC.
+`Released` - the claim has been deleted, but the cluster has not yet reclaimed the resource.
+`Failed` - this state shows that an error has occurred in the PV.
+
 ### Simple PV and PVC Demo
 
 - Step 1: Create a Persistent Volume (PV)
@@ -268,6 +283,15 @@ Apply the configuration using: `kubectl apply -f pod.yaml`
 
 
 This Pod uses the PVC named my-pvc, and the storage from the PV my-pv is mounted to the path /usr/share/nginx/html inside the container.
+
+#### Provisioning
+There are two ways to provision persistent storage volumes in Kubernetes:
+
+- Static
+PVs are created by Kubernetes cluster administrators and exist in the Kubernetes API. PVs represent real storage, and these stores provided by PVs are available to all users in the cluster. With static provisioning, the PV is created in advance by the cluster administrator; the developer creates the PVC and the Pod, and the Pod uses the storage provided by the PV through the PVC.
+
+- Dynamic
+For dynamic provisioning, when none of the static PVs created by the administrator can match the user’s PVC, the cluster will try to automatically provision a storage volume for the PVC, which is based on StorageClass. In the dynamic provisioning direction, the PVC needs to request a storage class, but this storage class must be pre-created and configured by the administrator. The cluster administrator needs to enable the access controller for DefaultStorageClass in the API Server.
 
 ### Storage Classes
 In Kubernetes, a StorageClass is an abstraction that defines the characteristics and parameters for dynamically provisioning storage resources. It allows administrators to define different classes of storage and enables users to request storage without needing to know the underlying details of the storage infrastructure.
@@ -392,3 +416,14 @@ kubectl delete storageclass <storageclass-name>
 kubectl apply -f my-storageclass.yaml
 
 ```
+
+### Common Use Cases
+One common use case for Persistent Volumes is database management. Databases often require persistent storage to maintain data integrity and ensure high availability. By using a Persistent Volume, administrators can ensure that the data stored in the database remains persistent even if the corresponding pod goes offline or gets rescheduled.
+
+Another use case for Persistent Volumes is file sharing and collaboration applications. Applications like content management systems or file servers often require shared storage where multiple pods can read and write data simultaneously. Persistent Volumes provide the necessary functionality to meet these requirements.
+
+In addition to databases and file sharing applications, Persistent Volumes can also be beneficial in other scenarios. For example, in machine learning applications, where large datasets need to be stored and accessed by multiple pods simultaneously, PVs offer a scalable and efficient solution. Similarly, in IoT deployments, where sensor data needs to be collected and stored persistently, Persistent Volumes can ensure data reliability and availability.
+
+Overall, Persistent Volumes are a powerful tool in the Kubernetes ecosystem. They provide a flexible and reliable way to manage data storage, decoupling it from individual pods and enabling seamless scaling and management of applications. By understanding the purpose and benefits of Persistent Volumes, developers and operators can make informed decisions about when and how to leverage this technology in their applications.
+
+Now, take a look at a few examples to learn about common use cases.
