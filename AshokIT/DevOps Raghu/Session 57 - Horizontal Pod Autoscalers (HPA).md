@@ -80,7 +80,7 @@ kubectl get hpa
 # Describe HPA
 kubectl describe hpa <hpa-name>
 
-# Autoscale a Deployment
+# create a hpa for a Deployment without the yaml file
 kubectl autoscale deployment <deployment-name> --cpu-percent=50 --min=1 --max=10
 
 # Delete HPA
