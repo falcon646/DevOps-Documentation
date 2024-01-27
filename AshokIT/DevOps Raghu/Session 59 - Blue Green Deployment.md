@@ -134,10 +134,10 @@ spec:
 Access the application using pre-prod service
 		http://node-ip:30092/maven-web-app/
 
-Note: Once pre-prod testing completed then v2 pods we need to make live.
-Q) How can we make Green PODS as Live?
-Go to service-live.yml and change selector to 'v2' and apply
-$ kubectl apply -f service-live.yml
-After applying live service with v2 then our live service will point to green pods (latest code)
+- Note: Once pre-prod testing completed then v2 pods we need to make live.
+- Q) How can we make Green PODS as Live?
+	- Go to service-live.yml and change selector to 'v2' and apply
+- kubectl apply -f service-live.yml
+	- After applying live service with v2 then our live service will point to green pods (latest code)
 	URL : http://node-ip:30002/maven-web-app/
 
