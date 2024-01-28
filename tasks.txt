@@ -1,6 +1,7 @@
 ansible
 - deploy an dockerised application system from anible
 - deploy an kubernetes application system from anible
+- setup a kuerbenets cluster using ansible -  https://buildvirtual.net/deploy-a-kubernetes-cluster-using-ansible/
 
 kubernetes
 - setup kuebernetes from scratch ( no cloud)
