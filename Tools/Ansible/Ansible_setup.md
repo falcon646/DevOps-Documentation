@@ -19,14 +19,14 @@ sudo mkdir /etc/ansible
 # create ansible configuration and inventory files
     # ansible.cfg
 sudo vi /etc/ansible/ansible.cfg
-# copy the below 3 lines and paste in yout ansible.cfg file
+# copy the below 3 lines and paste in yout ansible.cfg file ( remove the comments from the actual file)
 
 [defaults]
 inventory = /etc/ansible/aws.ini # to specify the location of hosts file
 sudo_user = ec2-user # to specify the user
 
 # aws.ini
-sudo vi /etc/ansible/hosts
+sudo vi /etc/ansible/aws.ini
 # create the inventory file by adding the host details and the pem key like below
 [web]
 web1 ansible_ssh_host=3.84.124.82 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/test.pem

@@ -137,4 +137,101 @@ node {
 }
 ```
 
-### Section
+### Sections
+- `Agent` : In a Jenkins scripted pipeline, the “agent” section is used to specify the agent on which the pipeline will run. The agent section is optional, but if specified, it determines the machine executing the stages defined in the pipeline.
+
+    The agent section can be defined at the top level of the pipeline script, or it can be specified within individual stages.
+
+    ```groovy
+    agent {
+        <label> 
+        <node> 
+        <customWorkspace>
+    }
+    ```
+- `Options`:
+The options section in a Jenkins scripted pipeline allows you to specify options for the entire pipeline, such as timeouts, notifications, and environment variables. The options section is optional, but if specified, it can provide additional control and customization for the pipeline execution.
+
+    Some of the options that can be specified in the options section include:
+
+    - timeout
+    - timestamps
+    - buildDiscarder(logRotator)
+    - environment
+
+    Below is an example of how the options section can be used in a scripted pipeline:
+
+    ```groovy
+    node {
+    agent any
+    options {
+        timeout(2h)
+        timestamps
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }
+    stage('Build'){
+        // build code
+    } 
+    }
+    ```
+
+- `Stage` : A stage in Jenkins scripted pipeline represents a phase in the software development lifecycle. Stages help to break down the pipeline into smaller, manageable steps that can be executed in parallel or sequentially.
+
+    Below is an example of a stage in a Jenkins scripted pipeline:
+    ```groovy
+    node {
+    agent any
+    stage('Build'){
+        // build code
+    }
+    stage('test'){
+        // test code
+    }  
+    }
+    ```
+- `Post` : The “post” section is used to specify steps that should be executed after all stages have been completed. The “post” section is optional.
+
+    Below is an example of how the “post” section can be used in a scripted pipeline.
+
+    ```groovy
+    node {
+    agent any
+    stage('Build'){
+        // build code
+    }
+    post{
+        success {
+            echo 'Project build successfully!'
+        }
+        failure {
+            echo 'Project build failed!'
+        }
+    }  
+    }
+    ```
+- `Parameter` : In a scripted pipeline, we can pass parameters by using properties. Below is the working example of a simpleScripted Pipeline with parameters
+
+    ```groovy
+    node(){
+        properties([
+            parameters([
+                string(defaultValue: 'world', name: 'Name')
+                ]
+        sh "hello ${Name}"
+    }
+    ```
+    Jenkins pipeline supports many parameters like string, boolean, file, etc. 
+
+- `Environment Variable` : environments variable can be set using the withEnv keyword in a scripted Pipeline.
+    ```groovy
+    node{
+        withEnv(['FName=Naive','LName=skill']) {
+            stage('Build') {
+                sh 'echo $FName $LName'
+            }
+        }
+    ```
+
+https://naiveskill.com/jenkins-scripted-pipeline/
+
+https://www.scaler.com/topics/scripted-pipeline-in-jenkins/
