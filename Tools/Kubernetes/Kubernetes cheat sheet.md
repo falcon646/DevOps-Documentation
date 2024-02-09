@@ -11,6 +11,9 @@ kubectl explain <resource-name>
 kubectl explain <resource-name> --api-version=<desired-api-version>
 kubectl explain pod --api-version=v1
 
+# view logs from all pods under a deployment by selecting the label
+kubectl logs -l <label-selector> --all-containers=true
+
 ```
 ### Common apiVersions
 ```yaml
@@ -67,4 +70,32 @@ apiVersion: policy/v1beta1
 
 # Custom Resource Definitions (CRDs)
 apiVersion: apiextensions.k8s.io/v1
+```
+
+### Generate Yaml templates
+You can generate YAML templates for different Kubernetes resources using the `kubectl create` command with the `--dry-run=client` flag. This flag instructs `kubectl` to simulate the resource creation without actually sending the request to the Kubernetes cluster, and instead, it prints the generated YAML to the standard output. Here's how you can do it for various resources:
+```bash
+# Pod
+kubectl create deployment my-pod --image=nginx --dry-run=client -o yaml
+
+### Service:
+kubectl create service clusterip my-service --tcp=80:80 --dry-run=client -o yaml
+
+### Deployment:
+kubectl create deployment my-deployment --image=nginx --dry-run=client -o yaml
+
+### ConfigMap:
+kubectl create configmap my-configmap --from-literal=key1=value1 --from-literal=key2=value2 --dry-run=client -o yaml
+
+### Secret:
+kubectl create secret generic my-secret --from-literal=secret1=value1 --from-literal=secret2=value2 --dry-run=client -o yaml
+
+### PersistentVolume:
+kubectl create pv my-pv --capacity=1Gi --access-mode=ReadWriteOnce --host-path=/path/to/storage --dry-run=client -o yaml
+
+### PersistentVolumeClaim:
+kubectl create pvc my-pvc --resources=requests.storage=1Gi --access-mode=ReadWriteOnce --dry-run=client -o yaml
+
+### capture the output and redirect it to a file if you want to save it to a YAML file.
+kubectl create deployment my-deployment --image=nginx --dry-run=client -o yaml > my-deployment.yaml
 ```
