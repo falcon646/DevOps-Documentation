@@ -1,3 +1,44 @@
+# Index
+
+1. **Virtual Machine Management in AKS**:
+   - [Virtual Machine ScaleSets (VMSS) vs. Virtual Machine Availability Sets (VMAS)](#50-virtual-machine-scalesets-vmss-and-virtual-machine-availability-sets-vmas)
+   - Characteristics of VMAS and VMSS
+   - Limitations and considerations for each type
+
+2. **AKS NodePool Configuration**:
+   - [System and User Node Pools Types](#51-system-and-user-node-pools-types)
+   - Purpose and configuration of System Node Pools
+   - Purpose and configuration of User Node Pools
+   - Best practices for segregating workloads
+
+3. **Accessing Nodes**:
+   - [Access nodes via helper pods](#52-connect-to-aks-nodes-using-helper-pod)
+   - [Access nodes via SSH using Azure Bastion](#53-connect-to-aks-nodes-via-ssh-using-azure-bastion)
+   - [Access nodes via SSH Pod](#54-connect-to-aks-nodes-via-ssh-using-pod)
+
+4. **Operating Systems in AKS**:
+   - [NodePool OS Types)](#56-os-on-aks-nodes)
+   - [Azure Linux (Mariner) NodePools](#57-nodespools-with-azure-linux-mariner)
+
+5. **Customization of Node Configuration**:
+   - [Using az aks parameters](#60-customize-node-configuration-using-az-aks-parameters)
+   - [Using DaemonSet](#61-customize-node-configuration-using-daemonset)
+
+
+6. **OS Disk Types for Nodes**:
+   - [OS Disks for Nodes](#62-os-disks-for-nodes)
+   - [Managed Disk vs. Ephemeral Disk](##Managed-Disk)
+   - [Default OS Disk Size](#63-default-os-disk-size)
+
+7. **Node Pool Management**:
+   - [NodePool Snapshots](#63-nodepool-snapshots): creation and usage
+   - [Resize a NodePool](#64-resize-a-nodepool): limitations and workarounds
+   - [Scheduling Pods on Specific NodePools](#59-scheduling-pods-on-specific-nodepools)
+
+8. **Security and Access Control**:
+   - [Scheduling Pods on Specific NodePools](#59-scheduling-pods-on-specific-nodepools) using NodeSelector
+   - Security considerations for accessing nodes and modifying configurations
+
 # 50.  Virtual Machine ScaleSets (VMSS) and Virtual Machine Availability Sets (VMAS)
 **Virtual Machine Types:**
 - Node pools in AKS can use two types of virtual machines:
@@ -85,7 +126,7 @@ az aks create -g aks-rg -n aks-vmas-demo --vm-set-type AvailabilitySet --node-co
 - Adding a "no-schedule" taint to system node pools can prevent application pods from scheduling on them but it is not mandatory
 - At least one system node pool is required in an AKS cluster, but it's permissible for it to host both system and application pods.
 
-![alt text](../images/image9.png)
+![alt tet](images/image9.png)
 
 **Node Pool Type Conversion:**
 - It is possible to convert the type of a node pool from system to user or vice versa in AKS.
@@ -162,7 +203,7 @@ By default, nodes in Azure environments lack public IP addresses, similar to VMs
 
 In our diagram, users leverage Azure Bastion to connect to VM instances securely. The Bastion NSG is applied to the Azure Bastion subnet, enhancing network security. While not mandatory, this configuration is advisable for better security practices. Additionally, SSH access should be allowed for connecting to Linux nodes, ensuring seamless connectivity and management across different operating systems.
 
-![alt text](../images/image10.png)
+![alt text](images/image10.png)
 
 **Steps to Set Up Azure Bastion for SSH Connectivity**
 

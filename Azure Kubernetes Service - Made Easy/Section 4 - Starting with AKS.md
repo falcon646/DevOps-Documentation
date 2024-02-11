@@ -36,7 +36,7 @@ Azure handles tasks such as provisioning, scaling, and upgrading the Kubernetes 
     As with the broader Azure shared responsibility model, certain aspects of security are shared between Microsoft and customers.
     For example, Microsoft provides security features at the infrastructure and platform level, such as network isolation, encryption at rest, and built-in DDoS protection. However, customers are responsible for configuring network security groups, implementing encryption in transit, and securing their applications and data within AKS.
     
-![alt text](../images/image.png)
+![alt text](images/image.png)
 
 -------
 
@@ -217,7 +217,7 @@ Node pool is a grouping of nodes (virtual machines) within an AKS cluster that s
 - Node Scaling:
     - You can scale the number of nodes in a node pool dynamically based on workload requirements or resource utilization. AKS supports both manual and auto-scaling modes for node pools.
     - With auto-scaling, AKS automatically adjusts the number of nodes in a node pool based on metrics such as CPU utilization or pod scheduling requirements, ensuring efficient resource utilization and responsiveness to workload changes.
-![alt text](../images/image-2.png)
+![alt text](images/image-2.png)
 
 ### Multiple Node Pools
 - Multiple node pools allow you to run different types of workloads or applications within the same AKS cluster, each with its own set of resources and configurations.
@@ -509,7 +509,7 @@ Overview of kube-proxy and its role in AKS:
 
 ## Infrastructure components in AKS
 - aks infrastrcture resrources gets created inside the infra/managed resource group
-![alt text](../images/image-4.png)
+![alt text](images/image-4.png)
 - the infra resource group is only used during the lifecycyle of the aks cluster and gets deleted when the cluster is deleted
 - the resources inside the infra rg should not be modified directly , but only through the AKS api ie through the AKS dashboard and not on the specific resource level
 - some resource can be created before creating the aks cluster , so they exist even after the cluster deletion example , vnet
@@ -521,7 +521,7 @@ Overview of kube-proxy and its role in AKS:
 - aks nodes run on azure vms , whcih are even vmms or vms part of vmas . vmms are most likely prefered in aks due to theri flexibility and easir management
 - aks node name are base36 based , where as vmms instances are base10 based
 - Summary : the aks node pools manages the vmms. The VMSS has a specific number of instances. Each aks node run in one of these vm instances
-![alt text](../images/image6.png)
+![alt text](images/image6.png)
 - we can see the nodepool from the blade in aks dashboard. in the nodepools page we can aslo see the actual nodes created
 - to see vmss , we need to goto properties and then the infrastructure resourge group and there select the vmms
 - when you reach the vmms dashboard, you can see the instances in that vmms. these instances are where the k8 worker nodes are running
@@ -548,7 +548,7 @@ Overview of kube-proxy and its role in AKS:
 - it is not mandatory to use it in aks cluster , but it is created when cluster is created with default setting and the nsg default rules wil be assigned at the aks subnet level
 - these rules (default rules) are added to all nsg and they cannot be removed. th aim of these rules is to allow essential traffic frm resources(internal subnet traffic) and block malicious traffic from internet 
 - if you create a k8 service of type LoadBalancer in your cluster , aks automaticaly adds a inbound rule In NSG to allow traffic at that port and ip combination
-![nsg](../images/image7.png)
+![nsg](images/image7.png)
 ---
 ## Route Tables
 - Azure routes traffic by default across subnets, vnets on premises, network and the internet. But a route table can be used to specify how packets should be routed.
@@ -570,7 +570,7 @@ Overview of kube-proxy and its role in AKS:
 - Public IP
     - A public IP is a unique IP address given to a resource in Azure that is reachable from the Internet.
     - The use case of a public IP in a case is strongly related to the Kubernetes load balancer and helps to achieve the functionalities mentioned above.
-![alt text](../images/image8.png)
+![alt text](images/image8.png)
 
 ### Working on AKS Load Balancer
 - the name of the lb cdated while creating the cluster is "kubernetes"
