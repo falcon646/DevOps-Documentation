@@ -52,7 +52,7 @@ example
 - Now create a docker netwiork and attach th containers to it
 - you need to attach this network to all container that need to be part of the network
 ```bash
-# ceate docker network
+# create docker network
 docker network create <name>`
 
 # list docker network
