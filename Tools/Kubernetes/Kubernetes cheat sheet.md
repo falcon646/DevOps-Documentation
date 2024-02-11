@@ -14,6 +14,19 @@ kubectl explain pod --api-version=v1
 # view logs from all pods under a deployment by selecting the label
 kubectl logs -l <label-selector> --all-containers=true
 
+
+# to explain a parameter of any yaml
+kubectl explain [RESOURCE] [OPTIONS]
+
+# get information about the Pod resource
+kubectl explain pod
+
+# to get information about specific fields within a resource
+kubectl explain pod.spec.containers
+kubectl explain pod.metadata.annotations
+kubectl explain pod.metadata.labels
+kubectl explain pod.spec.containers.command
+
 ```
 ### Common apiVersions
 ```yaml
