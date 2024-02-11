@@ -11,7 +11,7 @@ In jenkins we can create jobs in 2 ways
 Pipeline code is started in a file called as Jenkinsfile , it is a part of the application reository
 
 ### Jenkins Declarative pipeline with stages syntax
-```jenkinsfile
+```groovy
 pipeline{
     agent any
     stages{

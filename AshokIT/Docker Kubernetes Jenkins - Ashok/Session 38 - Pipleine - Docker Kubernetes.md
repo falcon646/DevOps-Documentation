@@ -1,6 +1,6 @@
 # Jenkins Pipeline for Docker and Kubernetes integration
 
-Project Setup using below tools
+**Project Setup using below tools**
 1. Maven
 2. Git Hub
 3. Jenkins
