@@ -1,6 +1,6 @@
 
-=====AWS RDS=========
-Steps 
+## AWS RDS
+- **Steps** 
     - cretae database
     - select standard create
     - select mysql 5.7.34
@@ -10,8 +10,7 @@ Steps
     - in instace type select -> db.t3.micro
     - select public access
     - create db
-
-# to connect to the above db , you need to install mysql client ie mysql workbench
+- to connect to the above db , you need to install mysql client ie mysql workbench
 
 
 
