@@ -1,4 +1,4 @@
-# Ansible Setup
+# Ansible Setup Using SSH
 - A simple and faster way to setup ansible
 - Using SSH authentication instead of password authetication
 

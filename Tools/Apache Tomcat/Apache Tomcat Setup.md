@@ -1,4 +1,4 @@
-# Apache Tomcat Setup #
+# Apache Tomcat Setup
 
 ``` bash
 # install jdk
