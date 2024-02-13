@@ -27,7 +27,7 @@
 
 6. **OS Disk Types for Nodes**:
    - [OS Disks for Nodes](#62-os-disks-for-nodes)
-   - [Managed Disk vs. Ephemeral Disk](##Managed-Disk)
+   - [Managed Disk vs. Ephemeral Disk](#managed-disk)
    - [Default OS Disk Size](#63-default-os-disk-size)
 
 7. **Node Pool Management**:
@@ -125,6 +125,17 @@ az aks create -g aks-rg -n aks-vmas-demo --vm-set-type AvailabilitySet --node-co
 - While not mandatory, segregating system and application workloads between separate node pools is a recommended best practice.
 - Adding a "no-schedule" taint to system node pools can prevent application pods from scheduling on them but it is not mandatory
 - At least one system node pool is required in an AKS cluster, but it's permissible for it to host both system and application pods.
+
+| Consideration/Limitation | System | User |
+|---|---|---|
+| OS | Linux  | Linux/Windows |
+| Minimum node pool count | At least one node  | User node pool can have 0 nodes or more |
+| Spot node pools supportability | Not supported | Supported |
+| MaxPods per node | 30-250 | 10-250 |
+| Minimum node size | At least one System node must be Linux | Can be Linux or Windows |
+| Pools in the cluster | At least one System node pool must exist within the cluster | Having a User node pool is not mandatory |
+| Stop particular node pool | Cannot be stopped | Can be stopped |
+
 
 ![alt tet](images/image9.png)
 
@@ -297,6 +308,7 @@ It's important to note that users do not have the option to choose between Ubunt
    -  Its lightweight and secure nature makes Azure Linux a logical choice for containerized environments.
 
 ```bash
+# pre-requisite aks preview needs o be installed
 # create a system nodepool with azurelinux
 az aks nodepool add -g <rg-name> --cluster-name <aks-name> --name <node-pool-name> --os-sku AzureLinux --mode System --node-count 1
 
