@@ -2,8 +2,7 @@
 Steps to setup Jenkins Master Slave Archicture
 
 - Create a master node
-    - Foolow the normal jenkins server installation steps to create the master node
-
+    - Follow the normal jenkins server installation steps to create the master node
 - Creating a Slave node
     - Create ec2 instance
     - install git

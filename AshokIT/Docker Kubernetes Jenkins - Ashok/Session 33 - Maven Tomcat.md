@@ -1,12 +1,11 @@
 # Deploy a Maven app to Tomcat
 
 - Objective : To build a java spring application as a war file with help of maven and then deploy it to a apache tomcat server
-
 - Prerequisite : jenkins ec2 machine and tomcat ec2 machine
 
 ### Steps
 
-- ceate a new freestyle job
+- create a new freestyle job
 - configure the git url in sourcecodemanagemnet block and provide the branch 
 - scroll down to build steps -> select "Invoke top-level Maven targets" - select version that you configured (how to at bottom) - > add "clean package" in goals -> save n apply
 - (Install the plugin "Deploy to container" and then proceed)
@@ -18,7 +17,7 @@ ie http://<ec2-ip>:8080 -> save and apply
 
 ### Setup maven in jenkins
 
-- note : you do not need to install maven in the jenkins ec machine , you can direct specify the config in jenkins and it will handle all maven related activities
+- note : you do not need to install maven in the jenkins ec2 machine , you can direct specify the config in jenkins and it will handle all maven related activities
 
-- Go to manage jenkins -> tools > scrool to the botton to maven installation -> add name "maven-x-x-x"
+- Go to manage jenkins -> tools -> scroll to the botton to maven installation -> add name "maven-x-x-x"
 -> check install automatically -> select the maven version from the drop down -> save n apply
