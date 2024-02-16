@@ -111,4 +111,7 @@ kubectl create pvc my-pvc --resources=requests.storage=1Gi --access-mode=ReadWri
 
 ### capture the output and redirect it to a file if you want to save it to a YAML file.
 kubectl create deployment my-deployment --image=nginx --dry-run=client -o yaml > my-deployment.yaml
+
+# servive
+kubectl expose deploy <deploy-name> --port <port-num> --type <svc-type> --dry-run=client -o yaml > svc.yaml
 ```
