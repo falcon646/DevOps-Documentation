@@ -829,6 +829,30 @@ An Azure Load Balancer operates a transport layer, which is layer four of the OS
 scale set instance and up to 250 public IPS can be associated with the Azure Firewall.
 
 ![udr](images/udr.png)
+---
+# Create a AKS cluster with NAT Gateway
+[Docs](https://learn.microsoft.com/en-us/azure/aks/nat-gateway#code-try-0)
 
+**With a Managed NAT Gateway**
+- Create an AKS cluster with a new managed NAT gateway using the az aks create command with the `--outbound-type managedNATGateway`, `--nat-gateway-managed-outbound-ip-count`, and `--nat-gateway-idle-timeout` parameters. 
+- If you want the NAT gateway to operate out of a specific availability zone, specify the zone using --zones. If no zone is specified when creating a managed NAT gateway, then NAT gateway is deployed to "no zone" by default. When NAT gateway is placed in no zone, Azure places the resource in a zone for you
+- A managed NAT gateway resource can't be used across multiple availability zones.
+```bash
+  az aks create \
+      --resource-group myResourceGroup \
+      --name myNatCluster \
+      --node-count 3 \
+      --outbound-type managedNATGateway \
+      --nat-gateway-managed-outbound-ip-count 2 \
+      --nat-gateway-idle-timeout 4
+```
+- Update the outbound IP address or idle timeout using the az aks update command with the `--nat-gateway-managed-outbound-ip-count` or `--nat-gateway-idle-timeout` parameter.
+```bash
+az aks update \ 
+    --resource-group myResourceGroup \
+    --name myNatCluster\
+    --nat-gateway-managed-outbound-ip-count 5
+```
+---
 
 
