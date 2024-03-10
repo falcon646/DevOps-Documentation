@@ -27,6 +27,13 @@ kubectl explain pod.metadata.annotations
 kubectl explain pod.metadata.labels
 kubectl explain pod.spec.containers.command
 
+# view the the current user can perform a action
+kubectl auth can-i <action> <resource> -n <namespace>
+kubectl auth can-i get pods
+kubectl auth can-i create pods
+kubectl auth can-i delete pods
+
+
 ```
 ### Common apiVersions
 ```yaml
