@@ -34,6 +34,9 @@ kubectl auth can-i create pods
 kubectl auth can-i delete pods
 
 
+# resize pvc
+kubectl patch pvc <pvc-name> -p '{"spec":{"resources":{"requests":{"storage":"<new-size>"}}}}'
+
 ```
 ### Common apiVersions
 ```yaml
