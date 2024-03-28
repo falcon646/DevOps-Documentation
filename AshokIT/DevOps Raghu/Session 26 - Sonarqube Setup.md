@@ -1,25 +1,19 @@
 ## Environment Setup:
 
 Requirements
-
-    - SonarQube requires a machine with a minimum of 2 CPU cores and 2 GB of RAM.
-    - Recommended to have at least 4 CPU cores and 8 GB of RAM for performance.
-    - Disk space requirements depend on the number of projects and the size of the codebase being analyzed. A minimum of 1 GB of free disk space is recommended.
-
-    - Make sure you have a compatible JDK installed and configured properly.
-        a.	SonarQube requires Java to be installed on the machine.
-        b.	SonarQube 9.0 and later versions require Java 11 or later.
-        c.	SonarQube 8.x versions support Java 11
-    
-    - Database:
-        - SonarQube requires a database to store analysis results and other data.
-        - Supported databases include PostgreSQL, Microsoft SQL Server, Oracle, and MySQL.
-        - SonarQube also supports the use of an embedded database (H2) for evaluation or small setups, but it is not recommended for production environments.
-
-    - SonarQube requires network connectivity to download plugins, updates, and dependencies during installation and runtime.
-    - Ensure that the server has access to the internet or the necessary network resources.
-
-
+- SonarQube requires a machine with a minimum of 2 CPU cores and 2 GB of RAM.
+- Recommended to have at least 4 CPU cores and 8 GB of RAM for performance.
+- Disk space requirements depend on the number of projects and the size of the codebase being analyzed. A minimum of 1 GB of free disk space is recommended.
+- Make sure you have a compatible JDK installed and configured properly.
+    - SonarQube requires Java to be installed on the machine.
+    - SonarQube 9.0 and later versions require Java 11 or later.
+    - SonarQube 8.x versions support Java 11 
+- Database:
+    - SonarQube requires a database to store analysis results and other data.
+    - Supported databases include PostgreSQL, Microsoft SQL Server, Oracle, and MySQL.
+    - SonarQube also supports the use of an embedded database (H2) for evaluation or small setups, but it is not recommended for production environments.
+- SonarQube requires network connectivity to download plugins, updates, and dependencies during installation and runtime.
+- Ensure that the server has access to the internet or the necessary network resources.
 
 ### SonarQube Installation in Amazon Linux 2023:
  - we will use EC2 instance with 4 GB RAM (t2.medium)
