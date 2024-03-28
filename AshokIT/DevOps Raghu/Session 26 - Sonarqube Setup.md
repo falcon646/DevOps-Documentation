@@ -84,9 +84,11 @@ once on the dashboard , it can be divided into 3 sections
 
 # Integrating a Maven app on Sonarqube:
 
-### Step 1.  Setup maven on a new machine
+### Step 1.  Setup maven on a new machine (amazonlinux)
 
 ```bash
+# install java
+sudo yum install java-11-amazon-corretto -y
 # Install Git and Maven
 sudo yum install git -y
 sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip -P /tmp
