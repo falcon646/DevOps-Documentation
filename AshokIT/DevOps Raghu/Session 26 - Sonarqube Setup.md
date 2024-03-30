@@ -73,6 +73,11 @@ cat "/opt/sonarqube/logs/"
 http://EC2-VM-IP:9000/
 
 # Default Credentials of Sonar User is admin & admin 
+
+# conatins the sonar.propertities file
+`/opt/sonarqube/conf` 
+ # contains logs for troubleshooting
+`/opt/sonarqube/logs`
 ```
 ### Sonarqube dashboard
 once on the dashboard , it can be divided into 3 sections

@@ -71,8 +71,7 @@ SonarQube utilizes a relational database to store the analysis results and confi
 4.	Web Interface and Reporting:
 The SonarQube server provides a web-based user interface that allows users to view analysis results, metrics, and reports. It offers dashboards, project overviews, code issue listings, trend charts, and other visualizations to help users understand and improve code quality.
 
-Summary : 
-
+- Summary : 
     - is a client server arch
     - client is sonar scanner
     - server is sonarqube server
