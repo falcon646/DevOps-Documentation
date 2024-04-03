@@ -11,9 +11,11 @@
     $ mvn --version
 # Step 2 Install wget if not exist
     $ sudo yum install wget -y
-# Step 3 Install Java 11 Software (JRE)
+# Step 3 Install Java 11 Software (JRE) (for rhel/centos/ubuntu)
     $ sudo yum install wget java-11-openjdk -y
     $ java -version
+# Step 3 Install Java 11 Software (JRE) for amazonlinux2023
+    sudo yum install java-11-amazon-corretto -y 
 # Step 4 Download Maven Software
     $ cd /tmp
     $ sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz

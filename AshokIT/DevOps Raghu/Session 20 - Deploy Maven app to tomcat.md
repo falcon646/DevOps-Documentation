@@ -8,34 +8,25 @@ sudo yum update -y
 #Install openjdk-11	
 sudo yum install java-11-openjdk -y # for rhel
 sudo yum install java-11-amazon-corretto -y # for amazonlinux2023
-
 #Verify the JAVAHOME link	
 readlink -f $(which java)
-
 #Install wget utility	
 sudo yum install git wget -y
-
 # Download the latest version of Apache-Maven	
 sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz -P /tmp
-
 #Extract the maven tar file to ‘/opt’	
 sudo tar xvzf /tmp/apache-maven-3.9.1-bin.tar.gz -C /opt
-
 #Rename the extracted directory to /opt/maven
 sudo mv  /opt/apache-maven-3.9.1 /opt/maven
-
 # or create a soft link maven in /opt directory	
 sudo ln -s /opt/apache-maven-3.9.1 maven
-
 #Add the environment variables in ‘/etc/profile.d/maven.sh’ file	
 sudo vi /etc/profile.d/maven.sh
-    # add below lines
-    export M2_HOME=/opt/maven
-    export PATH=${M2_HOME}/bin:${PATH}
-
+# add below lines
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
 # change the permissions of maven.sh file to executable	
 sudo chmod +x /etc/profile.d/maven.sh
-
 # Run the ‘maven.sh’ file with source	
 source /etc/profile.d/maven.sh
 ```
