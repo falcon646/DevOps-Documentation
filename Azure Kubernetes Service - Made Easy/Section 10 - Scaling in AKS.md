@@ -85,3 +85,43 @@ az aks nodepool add --node-count 2 --scale-down-mode Deallocate --node-osdisk-ty
 ```bash
 az aks nodepool update --scale-down-mode Delete --name nodepool2 --cluster-name myAKSCluster --resource-group myResourceGroup
 ```
+
+## Cluster Autoscaler
+Cluster Autoscaler is a component used to automatically adjust the number of nodes within the cluster to run the cluster effectively and economically.
+
+- ### Scaling Up
+  - Cluster Autoscaler monitors pods in the cluster that cannot be scheduled due to resource constraints.
+  - When scheduling pods becomes difficult due to resource constraints, the number of nodes in a node pool is increased to meet application demand.
+  - Unschedulable pods trigger the Cluster Autoscaler to attempt to find new places to run them.
+  - For example, if a pod needs more memory than is available on any cluster node, it becomes unschedulable.
+  - Cluster Autoscaler checks for unschedulable pods every 10 seconds by default.
+
+- ### Scaling Down
+  - Nodes are periodically assessed for the absence of running pods and might be removed if necessary.
+  - Cluster Autoscaler checks for resource utilization on nodes for scaling down, typically every ten seconds.
+  - A node is considered for scaling down if the total CPU and memory used by all pods running on the node is less than 50% of the node's available resources.
+  - The `--scale-down-utilization-threshold` flag configures the utilization threshold.
+  - Pods running on the node, except for manifest-run pods or daemonset pods, can be transferred to other nodes.
+  - Cluster Autoscaler is aware of possible destinations for each pod to be moved.
+  - There are exceptions and configurations to consider, such as annotations on nodes to prevent removal or pod disruption budgets restricting eviction.
+  - A node is removed if it is unneeded for more than ten minutes by default, configurable with the `--scale-down-unneeded-time` flag.
+  - A configmap named `cluster-autoscaler-status` is added to the kube-system namespace to reflect the status of Cluster Autoscaler.
+
+```bash
+# enable cluster autoscaler while createing the cluster
+az aks create -g <rg-name> -n <aks-name> --node-count 1 --enable-cluster-autoscaler --min-count 1 --max-count 3
+
+# Enable the cluster autoscaler on an existing cluster
+az aks update -g <rg-name> -n <aks-name> --enable-cluster-autoscaler --min-count 1 --max-count 3
+
+# Disable the cluster autoscaler on a cluster
+az aks update -g <rg-name> -n <aks-name> --name myAKSCluster --disable-cluster-autoscaler
+
+# create a nodepool wuth autoscaler (-c is node count needed when the command executes)
+az aks nodepool add -g <rg-name> -cluster-name <aks-name> --name cas-nodepool --enable-cluster-autoscaler --min-count 1 --max-count 5 -c 1
+
+# Use the cluster autoscaler on node pools
+az aks nodepool update -g <rg-name> -n <aks-name> --name nodepool1 --update-cluster-autoscaler --min-count 1 --max-count 5
+```
+
+(watch video for live action )
