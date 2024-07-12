@@ -32,6 +32,6 @@ FROM <base-img>
 COPY <path-to-file> <destiation-path>
 ```
 ```bash
-# to create an image from Dockerfile
+# create an image from Dockerfile
 docker build -t <imag-name:tag> <path-to-Dockerfile>
 ```
