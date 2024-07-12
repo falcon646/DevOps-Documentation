@@ -27,7 +27,7 @@ The deployment process typically involves the following steps:
 
 - Blue Environment Setup:
   - Create Blue Environment Deployment and configure service for that.
-```
+```yaml
 # sudo nano blue-deploy.yml
 apiVersion: apps/v1
 kind: Deployment
