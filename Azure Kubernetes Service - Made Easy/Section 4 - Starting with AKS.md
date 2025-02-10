@@ -217,6 +217,7 @@ Node pool is a grouping of nodes (virtual machines) within an AKS cluster that s
 - Node Scaling:
     - You can scale the number of nodes in a node pool dynamically based on workload requirements or resource utilization. AKS supports both manual and auto-scaling modes for node pools.
     - With auto-scaling, AKS automatically adjusts the number of nodes in a node pool based on metrics such as CPU utilization or pod scheduling requirements, ensuring efficient resource utilization and responsiveness to workload changes.
+    
 ![alt text](images/image-2.png)
 
 ### Multiple Node Pools
