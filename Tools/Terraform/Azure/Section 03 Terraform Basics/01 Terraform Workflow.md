@@ -42,7 +42,6 @@ az account set --subscription="SUBSCRIPTION_ID"
 ```
 - [Azure Regions](https://docs.microsoft.com/en-us/azure/virtual-machines/regions)
 - [Azure Regions Detailed](https://docs.microsoft.com/en-us/azure/best-practices-availability-paired-regions#what-are-paired-regions)
-```t
       
  
 
