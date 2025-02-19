@@ -1,7 +1,7 @@
 # business division
 variable "business_division" {
     description = "Business Division of the company"
-    type  = String
+    type  = string
     default = "sap"
 }
 
@@ -15,7 +15,7 @@ variable "environment" {
 # resource group variable
 variable "resource_group_name"{
     description = "resource group name"
-    type = String
+    type = string
     default = "rg-default"
 }
 
