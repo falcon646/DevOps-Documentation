@@ -1,0 +1,21 @@
+### Deploying Resources and Verifying Outputs  
+
+- **Initialize Terraform**  `terraform init`
+- **Validate Terraform Configuration**  `terraform validate` : This checks for syntax errors or misconfigurations.  
+- **Plan the Terraform Deployment**  `terraform plan` : This command displays the resources that Terraform will create. The output should indicate that a **Terraform-aks-dev resource group** will be created in the **Central US** region, as defined in `variables.tf`.  
+- **Applying Terraform Configuration** `terraform apply`
+- **Verifying Deployment ** : After completion, verify the deployed resources:  
+    - **Check the Command Line Output**  
+        - Terraform creates a **random pet resource**, which is automatically generated but not referenced elsewhere.  
+        - A **resource group** is created, with its **resource ID** displayed.  
+        - The **subscription ID** and **resource group name** are also visible in the output.  
+    - **View Output Values**  
+        - The **location** is outputted  
+        - The **resource group ID** is displayed.  
+        - The **resource group name** is also displayed.  
+        - These output values confirm that the deployment was successful.  
+    - **Verify in the Azure Portal**  
+        - Navigate to **portal.azure.com**.  
+        - Go to **Resource Groups** and refresh the page.  
+        - The resource group should now be listed.  
+        - Inside the resource group, confirm that the expected resources exist.  
