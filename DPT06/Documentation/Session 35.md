@@ -21,7 +21,7 @@ amazon-linux-extras install nginx1
 
 - for conatinerzing , you can prepare this conf file locally and copy it in dockerfile
 
-### Conatinerising
+### Conatinerizing
 
 **Dockerfile for nginx**
 ```Dockerfile
