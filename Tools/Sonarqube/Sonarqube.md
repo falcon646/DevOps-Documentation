@@ -101,12 +101,12 @@ The SonarQube Scanner is a command-line tool provided by SonarSource, the compan
 There are different SonarScanners available depending on the programming languages and the build tools you use. 
 Here are some commonly used SonarScanners and instructions on how to install and use them:
 
-    1. Gradle - SonarScanner for Gradle
-    2. Maven - SonarScanner for Maven
-    3. Jenkins - SonarQube Scanner Extension for Jenkins
-    4. Azure DevOps - SonarQube Extension for Azure DevOps
-    5. .NET - SonarScanner for .NET
-    6. Anything else - SonarScanner CLI
+1. Gradle - SonarScanner for Gradle
+2. Maven - SonarScanner for Maven
+3. Jenkins - SonarQube Scanner Extension for Jenkins
+4. Azure DevOps - SonarQube Extension for Azure DevOps
+5. .NET - SonarScanner for .NET
+6. Anything else - SonarScanner CLI
 
 ### SonarScanner CLI
 
