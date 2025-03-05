@@ -5,17 +5,107 @@ ansible
 
 kubernetes
 - setup kuebernetes from scratch ( no cloud)
+node labels
+rbac
+admisiiojn controllers
+taints and tolerations
+network policies
+pod distruption budget
+aks backup https://www.youtube.com/watch?v=1VhD0q2xoOU
+jobs ad cron jobs
+https://www.youtube.com/watch?v=PDBoprlJfUw
+access private aks cluster with bastion -> youtube
+certificate managenment in kubernetes
+workload identities
+https://medium.com/@tylerauerbeck/plight-of-the-volumeclaimtemplate-how-to-update-your-pvc-once-its-been-created-by-a-managed-9f5886feeb93
+https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-volume-claim-templates.html
 
 jenkins
 - setup completedcicd pipeline for a nodejs app
 - setup cicd pipeline for a reactjs app
 - include sonarqube and nexus and veracode
 - sast scan , sca scan , dast scan
+- jenkins template && shared library 
+- https://devopscube.com/jenkins-shared-library-tutorial/
+- https://www.jenkins.io/doc/book/pipeline/shared-libraries/
+- https://www.jenkins.io/blog/2019/05/09/templating-engine/
+- controller isolation 
+    - https://www.jenkins.io/doc/book/security/controller-isolation/
+- https://tomgregory.com/jenkins/deploy-jenkins-into-aws-ecs/
 
 docker
 - how to containerise java app
 - how to containerise nodejs app
 - how to containerise react app
 - how to containerise python app
+- multistage builds
 
+
+
+- quiality gate 1 , 2 , 3 4
+- sast scan , black duck scan
+- veracode scan
+- dynatrace
+- splunk
+
+terraform  secrets management
+    - https://spacelift.io/blog/terraform-secrets
+helm based deploymentys
+jenkins shared library and jenkins template
+monitering and observillibity
+    - Prometheus
+        - https://www.youtube.com/watch?v=gBdyIv9d_O8
+        - https://www.youtube.com/watch?v=6xmWr7p5TE0
+    - grafana
+
+
+-devops interview
+- https://www.youtube.com/watch?v=pjHtcYASW94
+- disater management &  recovery 
+
+- what service principle and managed identities
+- provding rbac on service principle and managed identities
+
+----
+
+https://www.youtube.com/watch?v=_G_RY5trQao : How to Set Up ArgoCD for Production? (EKS - ECR - Helm - App of Apps - Image Updater - GitOps)
+
+
+----
+
+Job Description
+We are looking for an experienced Kubernetes Operator to join our team. The ideal candidate will have expertise in Kubernetes operator-based applications, deep knowledge of CRD-based deployments, and the ability to optimize and troubleshoot complex cloud-native environments. The SRE will be responsible for ensuring high availability, performance, and scalability of our infrastructure while working closely with development and operations teams. 
+
+
+Job Responsibilities: 
+
+Kubernetes Operator Expertise – Deploy, manage, and maintain Kubernetes operator-based applications in cloud and on-prem environments. 
+CRD-Based Deployments – Implement and troubleshoot Custom Resource Definition (CRD)-based deployments to enhance automation and operational efficiency. 
+Region Awareness & Pod Topology Spread Constraints – Configure Kubernetes workloads with pod topology spread constraints to achieve high availability and fault tolerance across multiple regions. 
+Node Affinity & Scheduling Policies – Apply node selector and affinity rules to optimize pod scheduling and resource allocation across nodes. 
+Cluster Deployment & Upgrades – Troubleshoot and optimize cluster deployments, operator installations, and rolling updates to ensure smooth and reliable system upgrades. 
+Incident Management & Troubleshooting – Diagnose and resolve infrastructure and application issues by analyzing logs, metrics, and alerts. 
+Customer Support & Ticket Handling – Work on customer tickets, provide effective solutions, and collaborate with development teams to resolve issues efficiently. 
+Application Monitoring & Optimization – Utilize monitoring tools to analyse application performance and implement improvements. 
+Documentation & Knowledge Sharing – Create and maintain technical documentation, troubleshooting guides, and best practices for internal teams and customers. 
+Automation & CI/CD Integration – Improve deployment efficiency by implementing automation, Infrastructure as Code (IaC), and CI/CD pipelines using tools. 
+
+Requirements
+
+Must Have Skills: 
+
+
+Education: B.Tech in computer engineering, Information Technology, or related field. 
+Experience: 5+ years of Experience with Kubernetes Operator Expertise. Having in depth knowledge on deploy, manage, maintain and pod topology. 
+CRD-Based Deployments: 3+ Years of in-depth experience to implement and trouble shoot CRD. 
+Application Monitoring & Optimization: 3+ Years of experience in using tools such as Grafana, Prometheus 
+Terraform or Helm: 2+ years of experience in using terraform or Helm for infrastructure Automation & CI/CD Integration. 
+Bash, Python, or Golang: 2+ years of experience and in depth understanding of scripting tools. 
+
+Nice-to-Have Skills: 
+
+CAK certification will be good to have. 
+Familiarity with incident response and disaster recovery planning. 
+Strong understanding of container security and best practices for securing Kubernetes workloads. 
+Experience working with log aggregation tools like ELK Stack. 
 
