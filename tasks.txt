@@ -19,6 +19,12 @@ certificate managenment in kubernetes
 workload identities
 https://medium.com/@tylerauerbeck/plight-of-the-volumeclaimtemplate-how-to-update-your-pvc-once-its-been-created-by-a-managed-9f5886feeb93
 https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-volume-claim-templates.html
+how to place pods in different availablity zone in azure kubernets service (chatgpt)
+pod antiafffinity
+
+azure
+- availability zone vs fault domain
+
 
 jenkins
 - setup completedcicd pipeline for a nodejs app
@@ -32,6 +38,8 @@ jenkins
 - controller isolation 
     - https://www.jenkins.io/doc/book/security/controller-isolation/
 - https://tomgregory.com/jenkins/deploy-jenkins-into-aws-ecs/
+https://stackoverflow.com/questions/48914389/best-practices-to-promote-docker-images-across-dev-qa-uat-and-production
+
 
 docker
 - how to containerise java app
@@ -52,10 +60,12 @@ terraform  secrets management
     - https://spacelift.io/blog/terraform-secrets
 helm based deploymentys
 jenkins shared library and jenkins template
+https://www.jenkins.io/doc/pipeline/steps/core/
 monitering and observillibity
     - Prometheus
         - https://www.youtube.com/watch?v=gBdyIv9d_O8
         - https://www.youtube.com/watch?v=6xmWr7p5TE0
+        service moniter and pods moniter
     - grafana
 
 
