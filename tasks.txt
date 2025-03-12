@@ -67,6 +67,7 @@ monitering and observillibity
         - https://www.youtube.com/watch?v=6xmWr7p5TE0
         service moniter and pods moniter
     - grafana
+- in a jenkins pipleine there is a stage after 3 stages , after the 4th stage i dont want to ciontionus until i manually approve for the next stage , how can this be done
 
 
 -devops interview
@@ -76,6 +77,13 @@ monitering and observillibity
 - what service principle and managed identities
 - provding rbac on service principle and managed identities
 
+
+
+
+
+terraform
+    - how to make sure a resource is created before other
+    - how to make sure a resource is created first
 ----
 
 https://www.youtube.com/watch?v=_G_RY5trQao : How to Set Up ArgoCD for Production? (EKS - ECR - Helm - App of Apps - Image Updater - GitOps)
